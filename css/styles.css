@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Javanese:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --background-color: #f8fafc;
+  --text-color: #1e293b;
+  --border-color: #e2e8f0;
+}
+
+.linux-docs-container {
+  font-family:
+    "Poppins",
+    -apple-system,
+    system-ui,
+    sans-serif;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: var(--background-color);
+}
+
+.search-section {
+  margin-bottom: 2rem;
+}
+
+.search-box {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.search-box:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.category-tab {
+  padding: 0.5rem 1rem;
+  background: white;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-tab.active {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.commands-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.commands-table th {
+  background: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+}
+
+.commands-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.commands-table tr:last-child td {
+  border-bottom: none;
+}
+
+.commands-table tbody tr:hover {
+  background: #f1f5f9;
+}
+
+.command-cell {
+  font-family: "Fira Code", monospace;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.example-cell {
+  font-family: "Fira Code", monospace;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  .commands-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .category-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
