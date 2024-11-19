@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --background-color: #f8fafc;
+    --text-color: #1e293b;
+    --border-color: #e2e8f0;
+}
+
+.linux-docs-container {
+    font-family: 'Poppins', -apple-system, system-ui, sans-serif;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background: var(--background-color);
+}
+
+.search-section {
+    margin-bottom: 2rem;
+}
+
+.search-box {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.category-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.category-tab {
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.category-tab.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.commands-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.commands-table th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    padding: 1rem;
+    text-align: left;
+}
+
+.commands-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.commands-table tr:last-child td {
+    border-bottom: none;
+}
+
+.commands-table tbody tr:hover {
+    background: #f1f5f9;
+}
+
+.command-cell {
+    font-family: 'Fira Code', monospace;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.example-cell {
+    font-family: 'Fira Code', monospace;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+    .commands-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .category-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+</style>
+
+<div class="linux-docs-container">
+    <div class="search-section">
+        <input type="text" class="search-box" id="commandSearch" placeholder="Search Linux commands...">
+        
+        <div class="category-tabs">
+            <button class="category-tab active" data-category="all">All</button>
+            <button class="category-tab" data-category="file">Files & Directories</button>
+            <button class="category-tab" data-category="system">System Info</button>
+            <button class="category-tab" data-category="process">Process Management</button>
+            <button class="category-tab" data-category="text">Text Manipulation</button>
+            <button class="category-tab" data-category="network">Network</button>
+            <button class="category-tab" data-category="package">Package Management</button>
+            <button class="category-tab" data-category="permission">Permissions</button>
+            <button class="category-tab" data-category="archive">Archive</button>
+        </div>
+    </div>
+
+    <table class="commands-table">
+        <thead>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Example</th>
+                <th>Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Files and Directories -->
+            <tr data-category="file">
+                <td class="command-cell">ls</td>
+                <td>List directory contents</td>
+                <td class="example-cell">ls -l</td>
+                <td>Displays a detailed list of files in the current directory.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">cd</td>
+                <td>Change directory</td>
+                <td class="example-cell">cd /home/user</td>
+                <td>Changes the working directory to /home/user/Documents.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">pwd</td>
+                <td>Prints the current working directory</td>
+                <td class="example-cell">pwd</td>
+                <td>Outputs the full path of the current directory.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">mkdir</td>
+                <td>Create new directory</td>
+                <td class="example-cell">mkdir project</td>
+                <td>Creates a directory named new_folder.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">rmdir</td>
+                <td>Removes an empty directory	</td>
+                <td class="example-cell">rmdir old_folder</td>
+                <td>Deletes the directory old_folder.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">touch</td>
+                <td>Creates an empty file</td>
+                <td class="example-cell">touch file.txt	</td>
+                <td>Creates an empty file named file.txt.
+
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">cp</td>
+                <td>Copies files or directories</td>
+                <td class="example-cell">cp file.txt /backup/</td>
+                <td>Copies file.txt to the /backup/ directory.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">mv</td>
+                <td>Moves or renames files	</td>
+                <td class="example-cell">mv file.txt new_file.txt</td>
+                <td>Renames file.txt to new_file.txt.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">rm</td>
+                <td>Removes files or directories</td>
+                <td class="example-cell">rm -rf folder/	</td>
+                <td>Deletes the folder folder/ and its contents.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">find</td>
+                <td>Searches for files in a directory hierarchy	</td>
+                <td class="example-cell">find /home -name "*.txt"</td>
+                <td>Finds all .txt files in the /home directory.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">locate</td>
+                <td>Searches for files using an index</td>
+                <td class="example-cell">locate file.txt</td>
+                <td>Quickly finds the file file.txt if indexed.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">stat</td>
+                <td>Displays detailed file information</td>
+                <td class="example-cell">stat file.txt	</td>
+                <td>Shows size, permissions, and timestamps for file.txt.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">df</td>
+                <td>Displays disk space usage</td>
+                <td class="example-cell">df -h	</td>
+                <td>Shows human-readable disk usage information.
+                </td>
+            </tr>
+            <tr data-category="file">
+                <td class="command-cell">du</td>
+                <td>Shows directory or file size	</td>
+                <td class="example-cell">du -sh /var/log/</td>
+                <td>Displays the size of the /var/log/ directory.
+                </td>
+            </tr>
+
+            <!-- System Information -->
+            <tr data-category="system">
+                <td class="command-cell">reboot</td>
+                <td>Restarts the system</td>
+                <td class="example-cell">sudo reboot</td>
+                <td>Restarts the system immediately</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">shutdown</td>
+                <td>Powers off the system</td>
+                <td class="example-cell">sudo shutdown -h now</td>
+                <td>Shuts down the system immediately</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">hostnamectl</td>
+                <td>Displays or sets the system hostname</td>
+                <td class="example-cell">hostnamectl set-hostname new-host</td>
+                <td>Sets the hostname to new-host</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">uname</td>
+                <td>Displays system information</td>
+                <td class="example-cell">uname -a</td>
+                <td>Shows kernel name, version, and architecture</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">whoami</td>
+                <td>Displays the current logged-in user</td>
+                <td class="example-cell">whoami</td>
+                <td>Prints the username of the current user</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">uptime</td>
+                <td>Shows how long the system has been running</td>
+                <td class="example-cell">uptime</td>
+                <td>Displays system uptime and load averages</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">date</td>
+                <td>Displays or sets the system date and time</td>
+                <td class="example-cell">date</td>
+                <td>Prints the current system date and time</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">timedatectl</td>
+                <td>Configures system time and date settings</td>
+                <td class="example-cell">timedatectl set-time "2024-11-19 10:00:00"</td>
+                <td>Sets the system time to the specified value</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">df</td>
+                <td>Displays disk space usage</td>
+                <td class="example-cell">df -h</td>
+                <td>Shows human-readable disk usage of mounted filesystems</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">du</td>
+                <td>Displays file and directory size</td>
+                <td class="example-cell">du -sh /path/</td>
+                <td>Shows the total size of /path/</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">top</td>
+                <td>Shows real-time system resource usage</td>
+                <td class="example-cell">top</td>
+                <td>Displays running processes and CPU/memory usage</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">htop</td>
+                <td>Interactive process monitor</td>
+                <td class="example-cell">htop</td>
+                <td>Graphically shows processes and system resource usage</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">free</td>
+                <td>Displays memory usage</td>
+                <td class="example-cell">free -h</td>
+                <td>Shows available and used memory in human-readable form</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">kill</td>
+                <td>Terminates a process by PID</td>
+                <td class="example-cell">kill 1234</td>
+                <td>Kills the process with PID 1234</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">killall</td>
+                <td>Terminates processes by name</td>
+                <td class="example-cell">killall firefox</td>
+                <td>Kills all processes with the name firefox</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">ps</td>
+                <td>Lists running processes</td>
+                <td class="example-cell">ps aux</td>
+                <td>Shows all running processes and details</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">systemctl</td>
+                <td>Controls systemd services and units</td>
+                <td class="example-cell">sudo systemctl restart sshd</td>
+                <td>Restarts the SSH service</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">journalctl</td>
+                <td>Views system logs</td>
+                <td class="example-cell">journalctl -xe</td>
+                <td>Displays the most recent system logs with detailed info</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">clear</td>
+                <td>Clears the terminal screen</td>
+                <td class="example-cell">clear</td>
+                <td>Empties the terminal display</td>
+            </tr>
+            <tr data-category="system">
+                <td class="command-cell">echo</td>
+                <td>Prints a string or variable value</td>
+                <td class="example-cell">echo "Hello, World!"</td>
+                <td>Displays Hello, World! in the terminal</td>
+            </tr>
+            
+            <!-- Process Management -->
+            <tr data-category="process">
+                <td class="command-cell">ps</td>
+                <td>Lists running processes</td>
+                <td class="example-cell">ps aux</td>
+                <td>Outputs detailed information about all processes.</td>
+            </tr>
+            <tr data-category="process">
+                <td class="command-cell">top</td>
+                <td>Displays real-time resource usage</td>
+                <td class="example-cell">top</td>
+                <td>Shows CPU, memory, and process usage dynamically.</td>
+            </tr>
+            <tr data-category="process">
+                <td class="command-cell">htop</td>
+                <td>Interactive process viewer</td>
+                <td class="example-cell">htop</td>
+                <td>Opens an interactive process monitor.</td>
+            </tr>
+            <tr data-category="process">
+                <td class="command-cell">kill</td>
+                <td>Terminates a process</td>
+                <td class="example-cell">kill 1234</td>
+                <td>Kills the process with PID 1234.</td>
+            </tr>
+            <tr data-category="process">
+                <td class="command-cell">uptime</td>
+                <td>Shows system uptime</td>
+                <td class="example-cell">uptime</td>
+                <td>Displays how long the system has been running.</td>
+            </tr>
+            
+            <!-- Text Manipulation -->
+            <tr data-category="text">
+                <td class="command-cell">cat</td>
+                <td>Displays the content of a file</td>
+                <td class="example-cell">cat file.txt</td>
+                <td>Outputs the content of file.txt to the terminal.</td>
+            </tr>
+            <tr data-category="text">
+                <td class="command-cell">less</td>
+                <td>Views file content one screen at a time</td>
+                <td class="example-cell">less file.txt</td>
+                <td>Opens file.txt for scrolling content.</td>
+            </tr>
+            <tr data-category="text">
+                <td class="command-cell">head</td>
+                <td>Displays the first few lines of a file</td>
+                <td class="example-cell">head -n 5 file.txt</td>
+                <td>Shows the first 5 lines of file.txt.</td>
+            </tr>
+            <tr data-category="text">
+                <td class="command-cell">tail</td>
+                <td>Displays the last few lines of a file</td>
+                <td class="example-cell">tail -n 5 file.txt</td>
+                <td>Shows the last 5 lines of file.txt.</td>
+            </tr>
+            <tr data-category="text">
+                <td class="command-cell">grep</td>
+                <td>Searches for patterns in files</td>
+                <td class="example-cell">grep "error" logfile.txt</td>
+                <td>Finds occurrences of "error" in logfile.txt.</td>
+            </tr>
+            <tr data-category="text">
+                <td class="command-cell">awk</td>
+                <td>Processes and analyzes text files</td>
+                <td class="example-cell">awk '{print $1}' file.txt</td>
+                <td>Prints the first column of file.txt.</td>
+            </tr>
+            <tr data-category="text">
+                <td class="command-cell">sed</td>
+                <td>Stream editor for text manipulation</td>
+                <td class="example-cell">sed 's/old/new/g' file.txt</td>
+                <td>Replaces all occurrences of "old" with "new" in file.txt.</td>
+            </tr>
+            
+            <!-- Network -->
+            <tr data-category="network">
+                <td class="command-cell">ping</td>
+                <td>Sends ICMP packets to test network connectivity</td>
+                <td class="example-cell">ping google.com</td>
+                <td>Pings google.com and shows response time.</td>
+            </tr>
+            <tr data-category="network">
+                <td class="command-cell">curl</td>
+                <td>Transfers data from or to a server</td>
+                <td class="example-cell">curl -O http://example.com/file.txt</td>
+                <td>Downloads file.txt from the specified URL.</td>
+            </tr>
+            <tr data-category="network">
+                <td class="command-cell">wget</td>
+                <td>Downloads files from the internet</td>
+                <td class="example-cell">wget http://example.com/file.txt</td>
+                <td>Downloads file.txt from the specified URL.</td>
+            </tr>
+            <tr data-category="network">
+                <td class="command-cell">ifconfig</td>
+                <td>Configures network interfaces (deprecated)</td>
+                <td class="example-cell">ifconfig eth0</td>
+                <td>Displays information about the eth0 interface.</td>
+            </tr>
+            <tr data-category="network">
+                <td class="command-cell">ip</td>
+                <td>Configures network interfaces</td>
+                <td class="example-cell">ip addr show</td>
+                <td>Shows IP addresses and interface details.</td>
+            </tr>
+            <tr data-category="network">
+                <td class="command-cell">ssh</td>
+                <td>Connects to a remote server via SSH</td>
+                <td class="example-cell">ssh user@remote_host</td>
+                <td>Logs into remote_host as user.</td>
+            </tr>
+            <tr data-category="network">
+                <td class="command-cell">scp</td>
+                <td>Copies files between servers</td>
+                <td class="example-cell">scp file.txt user@remote:/path/</td>
+                <td>Copies file.txt to a remote server.</td>
+            </tr>
+            <tr data-category="network">
+                <td class="command-cell">traceroute</td>
+                <td>Traces the route packets take to a destination</td>
+                <td class="example-cell">traceroute google.com</td>
+                <td>Shows hops to reach google.com.</td>
+            </tr>
+            
+            <!-- Package Management -->
+            <tr data-category="package">
+                <td class="command-cell">apt update</td>
+                <td>Updates the list of available packages</td>
+                <td class="example-cell">sudo apt update</td>
+                <td>Synchronizes package lists from repositories</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">apt upgrade</td>
+                <td>Installs updates for installed packages</td>
+                <td class="example-cell">sudo apt upgrade</td>
+                <td>Upgrades all installed packages to the latest version</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">apt install</td>
+                <td>Installs a package</td>
+                <td class="example-cell">sudo apt install vim</td>
+                <td>Installs vim package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">apt remove</td>
+                <td>Removes a package</td>
+                <td class="example-cell">sudo apt remove nano</td>
+                <td>Uninstalls the nano package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">apt autoremove</td>
+                <td>Removes unnecessary dependencies</td>
+                <td class="example-cell">sudo apt autoremove</td>
+                <td>Cleans up unused packages</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">apt search</td>
+                <td>Searches for a package in the repository</td>
+                <td class="example-cell">apt search git</td>
+                <td>Searches for git in available packages</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">apt-cache show</td>
+                <td>Displays package details</td>
+                <td class="example-cell">apt-cache show firefox</td>
+                <td>Shows detailed information about the firefox package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">dnf update</td>
+                <td>Updates all installed packages</td>
+                <td class="example-cell">sudo dnf update</td>
+                <td>Updates all installed packages using dnf</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">dnf install</td>
+                <td>Installs a package</td>
+                <td class="example-cell">sudo dnf install httpd</td>
+                <td>Installs the httpd package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">dnf remove</td>
+                <td>Removes a package</td>
+                <td class="example-cell">sudo dnf remove httpd</td>
+                <td>Uninstalls the httpd package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">yum update</td>
+                <td>Updates all packages (older systems)</td>
+                <td class="example-cell">sudo yum update</td>
+                <td>Updates all installed packages</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">yum install</td>
+                <td>Installs a package</td>
+                <td class="example-cell">sudo yum install curl</td>
+                <td>Installs the curl package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">pacman -S</td>
+                <td>Installs a package</td>
+                <td class="example-cell">sudo pacman -S neovim</td>
+                <td>Installs neovim using pacman</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">pacman -R</td>
+                <td>Removes a package</td>
+                <td class="example-cell">sudo pacman -R firefox</td>
+                <td>Removes the firefox package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">pacman -Syu</td>
+                <td>Updates system and all installed packages</td>
+                <td class="example-cell">sudo pacman -Syu</td>
+                <td>Synchronizes and upgrades all packages</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">pacman -Qs</td>
+                <td>Searches for an installed package</td>
+                <td class="example-cell">pacman -Qs vlc</td>
+                <td>Finds installed packages with vlc</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">pacman -Rns</td>
+                <td>Removes a package and its dependencies</td>
+                <td class="example-cell">sudo pacman -Rns package_name</td>
+                <td>Removes the package and unnecessary dependencies</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">snap install</td>
+                <td>Installs a Snap package</td>
+                <td class="example-cell">sudo snap install code --classic</td>
+                <td>Installs Visual Studio Code via Snap</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">snap remove</td>
+                <td>Removes a Snap package</td>
+                <td class="example-cell">sudo snap remove code</td>
+                <td>Removes the code Snap package</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">flatpak install</td>
+                <td>Installs a Flatpak package</td>
+                <td class="example-cell">flatpak install flathub org.gimp.GIMP</td>
+                <td>Installs GIMP from Flathub</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">flatpak remove</td>
+                <td>Removes a Flatpak package</td>
+                <td class="example-cell">flatpak remove org.gimp.GIMP</td>
+                <td>Uninstalls the GIMP Flatpak</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">flatpak list</td>
+                <td>Lists all installed Flatpak packages</td>
+                <td class="example-cell">flatpak list</td>
+                <td>Displays all installed Flatpak applications</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">pip install</td>
+                <td>Installs Python packages</td>
+                <td class="example-cell">pip install requests</td>
+                <td>Installs the requests Python module</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">pip uninstall</td>
+                <td>Uninstalls Python packages</td>
+                <td class="example-cell">pip uninstall requests</td>
+                <td>Uninstalls the requests module</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">brew install</td>
+                <td>Installs a package using Homebrew (macOS/Linux)</td>
+                <td class="example-cell">brew install wget</td>
+                <td>Installs wget using Homebrew</td>
+            </tr>
+            <tr data-category="package">
+                <td class="command-cell">brew uninstall</td>
+                <td>Removes a package using Homebrew</td>
+                <td class="example-cell">brew uninstall wget</td>
+                <td>Uninstalls wget using Homebrew</td>
+            </tr>
+            
+            <!-- Permissions -->
+
+            <tr data-category="permission">
+                <td class="command-cell">id</td>
+                <td>Shows user ID and group information</td>
+                <td class="example-cell">id user</td>
+                <td>Displays the UID and GID of user.</td>
+            </tr>
+            <tr data-category="permission">
+                <td class="command-cell">chmod</td>
+                <td>Changes file permissions</td>
+                <td class="example-cell">chmod 755 script.sh</td>
+                <td>Sets permissions for script.sh to rwxr-xr-x.</td>
+            </tr>
+            <tr data-category="permission">
+                <td class="command-cell">chown</td>
+                <td>Changes file owner or group</td>
+                <td class="example-cell">chown user:group file.txt</td>
+                <td>Changes the owner and group of file.txt.</td>
+            </tr>
+            <tr data-category="permission">
+                <td class="command-cell">passwd</td>
+                <td>Changes the user password</td>
+                <td class="example-cell">passwd</td>
+                <td>Prompts the user to set a new password.</td>
+            </tr>
+            
+            <!-- Archive -->
+            <tr data-category="archive">
+                <td class="command-cell">tar -cvf</td>
+                <td>Creates an archive from files or directories</td>
+                <td class="example-cell">tar -cvf archive.tar file1 file2</td>
+                <td>Lists files added to the archive, e.g., file1, file2</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">tar -xvf</td>
+                <td>Extracts files from an archive</td>
+                <td class="example-cell">tar -xvf archive.tar</td>
+                <td>Lists files extracted, e.g., file1, file2</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">tar -czvf</td>
+                <td>Creates a compressed archive using gzip</td>
+                <td class="example-cell">tar -czvf archive.tar.gz dir/</td>
+                <td>Lists directories and files added, then creates archive.tar.gz</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">tar -xzvf</td>
+                <td>Extracts files from a gzip-compressed archive</td>
+                <td class="example-cell">tar -xzvf archive.tar.gz</td>
+                <td>Lists files extracted, e.g., dir/file1</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">zip</td>
+                <td>Creates a zip file from files or directories</td>
+                <td class="example-cell">zip archive.zip file1 file2</td>
+                <td>Displays files compressed into archive.zip</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">unzip</td>
+                <td>Extracts files from a zip archive</td>
+                <td class="example-cell">unzip archive.zip</td>
+                <td>Lists files extracted to the current directory</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">gzip</td>
+                <td>Compresses a file into gzip format</td>
+                <td class="example-cell">gzip file1</td>
+                <td>Replaces file1 with file1.gz</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">gunzip</td>
+                <td>Extracts a gzip-compressed file</td>
+                <td class="example-cell">gunzip file1.gz</td>
+                <td>Restores file1.gz to file1</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">7z a</td>
+                <td>Creates an archive in 7z format</td>
+                <td class="example-cell">7z a archive.7z file1 file2</td>
+                <td>Lists files added to archive.7z</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">7z x</td>
+                <td>Extracts files from a 7z archive</td>
+                <td class="example-cell">7z x archive.7z</td>
+                <td>Lists files extracted to the current directory</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">cpio -o</td>
+                <td>Creates an archive using cpio</td>
+                <td class="example-cell">ls|cpio -o > archive.cpio</td>
+                <td>Creates archive.cpio containing listed files</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">cpio -i</td>
+                <td>Extracts files from a cpio archive</td>
+                <td class="example-cell">cpio -i < archive.cpio</td>
+                <td>Extracts files from archive.cpio to the current directory</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">ar rcs</td>
+                <td>Creates a static archive (library)</td>
+                <td class="example-cell">ar rcs archive.a file1.o file2.o</td>
+                <td>Lists files added to the archive archive.a</td>
+            </tr>
+            <tr data-category="archive">
+                <td class="command-cell">ar x</td>
+                <td>Extracts files from a static archive</td>
+                <td class="example-cell">ar x archive.a</td>
+                <td>Lists object files extracted from archive.a</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchBox = document.getElementById('commandSearch');
+    const categoryTabs = document.querySelectorAll('.category-tab');
+    const tableRows = document.querySelectorAll('.commands-table tbody tr');
+
+    // Search functionality
+    searchBox.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        filterTable(searchTerm, getCurrentCategory());
+    });
+
+    // Category filter functionality
+    categoryTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            categoryTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            filterTable(searchBox.value.toLowerCase(), this.dataset.category);
+        });
+    });
+
+    function getCurrentCategory() {
+        return document.querySelector('.category-tab.active').dataset.category;
+    }
+
+    function filterTable(searchTerm, category) {
+        tableRows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            const rowCategory = row.dataset.category;
+            const matchesSearch = text.includes(searchTerm);
+            const matchesCategory = category === 'all' || rowCategory === category;
+            
+            row.style.display = matchesSearch && matchesCategory ? '' : 'none';
+        });
+    }
+});
+</script>
